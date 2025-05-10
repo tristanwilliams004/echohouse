@@ -283,6 +283,7 @@ body.dark-mode .search-container input[type="text"] {
   color: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   animation: fadeIn 0.4s ease-in-out;
+  transition: all 0.3s ease;
 }
 
 .artist-profile h2 {
@@ -322,6 +323,7 @@ body.dark-mode .search-container input[type="text"] {
 
 #artist-profile {
   overflow-wrap: break-word;
+  opacity: 1;
 }
 
 /* Artist Profile Draggable and Close Button Styles */
@@ -342,4 +344,11 @@ body.dark-mode .search-container input[type="text"] {
   color: white;
   font-size: 20px;
   cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .player {
+    width: 90%;
+    padding: 20px;
+  }
 }

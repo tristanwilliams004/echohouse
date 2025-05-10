@@ -1,449 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EchoHouse Player</title>
-  <link rel="stylesheet" href="style.css?v=3" />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    #bg-blur {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      filter: blur(60px) brightness(0.3);
-      z-index: -1;
-      transition: background-image 0.5s ease;
-    }
-
-    .track-controls {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 10px;
-      margin: 20px;
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      margin-left: 100px;
-    }
-
-    .track-controls input {
-      background-color: rgba(255, 255, 255, 0.05);
-      color: white;
-      font-family: 'Manrope', sans-serif;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: none;
-      font-size: 14px;
-      width: 250px;
-    }
-    .time-labels {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Manrope', sans-serif;
-      font-size: 14px;
-      color: white;
-      gap: 4px;
-      margin-top: 10px;
-    }
-
-    .track-controls button {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      padding: 10px 14px;
-      font-size: 16px;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .track-controls button:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .waveform-bar {
-      width: 80%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 20px auto;
-    }
-
-    .waveform-fill {
-      height: 100%;
-      background: linear-gradient(to right, #00f260, #0575e6);
-      width: 0;
-      transition: width 0.3s ease-in-out;
-    }
-
-    .search-container {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 40px;
-      background-color: rgba(0, 0, 0, 0.8);
-      width: 100%;
-      max-height: 200px;
-      overflow-y: auto;
-      border-radius: 8px;
-      z-index: 10;
-    }
-
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      padding: 8px;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .dropdown-item:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .dropdown-thumb {
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-right: 10px;
-    }
-
-    .dropdown-text {
-      color: white;
-    }
-
-    .cover-art.dark-mode-glow {
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-
-    .artist-link {
-      cursor: pointer;
-      text-decoration: underline;
-      color: #00f260;
-    }
-
-    #artist-profile {
-      position: fixed;
-      top: 100px;
-      right: 50px;
-      background: rgba(0,0,0,0.9);
-      padding: 20px;
-      border-radius: 12px;
-      color: white;
-      max-width: 300px;
-      z-index: 20;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-      font-family: 'Manrope', sans-serif;
-    }
-    .close-btn {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      background: transparent;
-      color: white;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Music Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            background-color: #121212;
+            transition: background-color 0.3s ease;
+        }
+        #player {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+        #waveform {
+            width: 100%;
+            height: 10px;
+            background: #444;
+            border-radius: 5px;
+            margin: 20px 0;
+            cursor: pointer;
+            position: relative;
+        }
+        #progress {
+            height: 100%;
+            background: #1db954;
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.1s linear;
+        }
+        #track-info {
+            text-align: center;
+        }
+        #controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        button {
+            background: #1db954;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+        #search-dropdown {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        #search-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        #search-results {
+            position: absolute;
+            top: 45px;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            max-height: 150px;
+            overflow-y: auto;
+            border-radius: 0 0 5px 5px;
+            display: none;
+            z-index: 10;
+        }
+        #search-results div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #search-results div:hover {
+            background: #1db954;
+        }
+        #artist-profile {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(0,0,0,0.85);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            cursor: move;
+            z-index: 20;
+        }
+        #artist-profile h2 {
+            margin-top: 0;
+        }
+        #artist-profile .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1db954;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #fff;
+            z-index: 30;
+        }
+    </style>
 </head>
 <body>
-  <div class="track-controls">
-    <div class="search-container">
-      <input type="text" id="searchBox" oninput="filterDropdown()" placeholder="Search songs..." autocomplete="off" />
-      <div id="dropdown" class="dropdown-menu"></div>
+    <div id="player">
+        <div id="track-info">
+            <h1 id="track-title">Track Title</h1>
+            <h3 id="track-artist">Artist Name</h3>
+        </div>
+        <div id="waveform">
+            <div id="progress"></div>
+        </div>
+        <div id="controls">
+            <button id="prev-btn">Prev</button>
+            <button id="play-pause-btn">Play</button>
+            <button id="next-btn">Next</button>
+        </div>
     </div>
-    <button onclick="previousTrack()">⏮️</button>
-    <button onclick="nextTrack()">⏭️</button>
-  </div>
-<div id="bg-blur"></div>
-<header class="site-header">
-  <img src="echohouse-logo.png" alt="EchoHouse Logo" class="logo" />
-</header>
-  <div class="theme-toggle-container">
-    <button onclick="toggleTheme()" class="theme-toggle-btn">🌙 / ☀️</button>
-  </div>
 
-<div class="player">
-  <img id="album-art" src="Limitless.jpg" class="cover-art" crossorigin="anonymous" alt="Cover Art" />
-  <h2 id="track-title">Something In The Orange</h2>
-  <p id="track-artist"><span onclick="toggleProfile()" class="artist-link">Zach Bryan</span></p>
-  <audio id="audio">
-    <source id="audio-source" src="Zach Bryan - Something In The Orange.mp3" type="audio/mp3">
-  </audio>
-</div>
-
-  <div class="player-controls">
-    <div class="waveform-bar">
-      <div class="waveform-fill" id="progress-bar"></div>
+    <div id="search-dropdown">
+        <input type="text" id="search-input" placeholder="Search tracks..." autocomplete="off" />
+        <div id="search-results"></div>
     </div>
-    <div class="time-labels">
-      <span id="current-time">0:00</span>/<span id="total-time">0:00</span>
+
+    <div id="artist-profile">
+        <button class="close-btn" title="Close">&times;</button>
+        <h2 id="artist-name">Artist Name</h2>
+        <p id="artist-bio">Artist biography goes here...</p>
     </div>
-    <div class="controls">
-      <button class="btn" onclick="rewind()">⏮️</button>
-      <button class="play-btn" onclick="togglePlay()">▶️</button>
-      <button class="btn" onclick="skip()">⏭️</button>
-    </div>
-  </div>
 
-  <div id="artist-profile" class="artist-profile" style="display: none;">
-    <button class="close-btn" onclick="toggleProfile()">×</button>
-    <h2>Tristan Williams / T.B. On The Beat</h2>
-    <img src="tristan-profile.jpg" alt="Artist Image" style="width:120px;border-radius:8px;margin-bottom:10px;">
-    <p>Genre-defying artist and visionary producer known for fusing country grit with cinematic trap textures and bold storytelling that punches through the noise.</p>
-    <a href="artist-profile.html" class="profile-link">View Full Profile</a>
-  </div>
+    <button id="theme-toggle" title="Toggle Theme">🌓</button>
 
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle("dark-mode");
-    }
+    <audio id="audio"></audio>
 
-    function toggleProfile() {
-      const profile = document.getElementById("artist-profile");
-      profile.style.display = profile.style.display === "none" ? "block" : "none";
-    }
+    <script>
+        const tracks = [
+            {
+                title: "Track One",
+                artist: "Artist A",
+                src: "tracks/track1.mp3",
+                background: "url('images/bg1.jpg')",
+                artistBio: "Artist A is a renowned musician known for their unique style."
+            },
+            {
+                title: "Track Two",
+                artist: "Artist B",
+                src: "tracks/track2.mp3",
+                background: "url('images/bg2.jpg')",
+                artistBio: "Artist B has been producing hits for over a decade."
+            },
+            {
+                title: "Track Three",
+                artist: "Artist C",
+                src: "tracks/track3.mp3",
+                background: "url('images/bg3.jpg')",
+                artistBio: "Artist C is famous for their electrifying performances."
+            }
+        ];
 
-    const audio = document.getElementById("audio");
-    let playing = false;
+        const audio = document.getElementById('audio');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const trackTitle = document.getElementById('track-title');
+        const trackArtist = document.getElementById('track-artist');
+        const waveform = document.getElementById('waveform');
+        const progress = document.getElementById('progress');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const artistProfile = document.getElementById('artist-profile');
+        const artistName = document.getElementById('artist-name');
+        const artistBio = document.getElementById('artist-bio');
+        const artistCloseBtn = artistProfile.querySelector('.close-btn');
+        const themeToggle = document.getElementById('theme-toggle');
+        let currentTrackIndex = 0;
+        let isPlaying = false;
 
-    function togglePlay() {
-      if (!playing) {
-        audio.play();
-        document.querySelector('.play-btn').innerText = "⏸️";
-        playing = true;
-      } else {
-        audio.pause();
-        document.querySelector('.play-btn').innerText = "▶️";
-        playing = false;
-      }
-    }
-
-    function rewind() {
-      audio.currentTime = 0;
-    }
-
-    function skip() {
-      audio.currentTime = audio.duration;
-    }
-  </script>
-  <!-- Dynamic color script -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
-  <script>
-    const img = document.querySelector(".cover-art");
-    const player = document.querySelector(".player");
-    const colorThief = new ColorThief();
-
-    img.addEventListener('load', function () {
-  try {
-    if (img.complete) {
-      const color = colorThief.getColor(img);
-      const [r, g, b] = color;
-      player.style.boxShadow = `0 0 60px rgba(${r}, ${g}, ${b}, 0.5)`;
-      document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.05)`;
-img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
-    }
-  } catch (err) {
-    console.error("Color extraction failed:", err);
-  }
-});
-  </script>
-<script>
-  function loadTrack(file, title, artist, image) {
-    const audio = document.getElementById("audio");
-    const audioSource = document.getElementById("audio-source");
-    const albumArt = document.getElementById("album-art");
-    const titleEl = document.getElementById("track-title");
-    // Replace artist text with clickable span
-    document.getElementById("track-artist").innerHTML = `<span onclick="toggleProfile()" class="artist-link">${artist}</span>`;
-
-    audio.pause();
-    albumArt.src = image;
-    titleEl.textContent = title;
-    audioSource.src = file;
-    audio.load();
-    audio.play();
-    document.querySelector('.play-btn').innerText = "⏸️";
-    playing = true;
-
-    if (title === "Save Me") {
-      let count = localStorage.getItem("SaveMeStreams") || 0;
-      count++;
-      localStorage.setItem("SaveMeStreams", count);
-      document.getElementById("saveMeCount").textContent = count;
-    }
-
-    albumArt.addEventListener("load", () => {
-      try {
-        const color = colorThief.getColor(albumArt);
-        const [r, g, b] = color;
-        player.style.boxShadow = `0 0 60px rgba(${r}, ${g}, ${b}, 0.5)`;
-        document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.05)`;
-        albumArt.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
-        document.getElementById("bg-blur").style.backgroundImage = `url('${image}')`;
-        if (document.body.classList.contains("dark-mode") && image.includes("save-me")) {
-          albumArt.classList.add("dark-mode-glow");
-        } else {
-          albumArt.classList.remove("dark-mode-glow");
+        function loadTrackByIndex(index) {
+            if(index < 0) index = tracks.length - 1;
+            if(index >= tracks.length) index = 0;
+            currentTrackIndex = index;
+            const track = tracks[currentTrackIndex];
+            audio.src = track.src;
+            audio.autoplay = true;
+            trackTitle.textContent = track.title;
+            trackArtist.textContent = track.artist;
+            document.body.style.backgroundImage = track.background;
+            artistName.textContent = track.artist;
+            artistBio.textContent = track.artistBio;
+            updatePlayPauseButton(true);
         }
-      } catch (err) {
-        console.error("Color extraction failed:", err);
-      }
-    });
-  }
 
-  window.onload = () => {
-    loadTrack('SomethingInTheOrange.mp3', 'Something In The Orange', 'Zach Bryan', 'something-orange.png');
-  };
-</script>
-<script>
-  const progressBar = document.getElementById("progress-bar");
-  const currentTimeLabel = document.getElementById("current-time");
-  const totalTimeLabel = document.getElementById("total-time");
+        function updatePlayPauseButton(playing) {
+            isPlaying = playing;
+            playPauseBtn.textContent = playing ? "Pause" : "Play";
+        }
 
-  audio.addEventListener("timeupdate", () => {
-    const current = audio.currentTime;
-    const duration = audio.duration || 0;
-    const progressPercent = (current / duration) * 100;
-    progressBar.style.width = `${progressPercent}%`;
-    currentTimeLabel.textContent = formatTime(current);
-    totalTimeLabel.textContent = formatTime(duration);
-    if (typeof r !== "undefined" && typeof g !== "undefined" && typeof b !== "undefined") {
-      progressBar.style.background = `linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0.9), rgba(${r}, ${g}, ${b}, 0.4))`;
-    }
-  });
+        playPauseBtn.addEventListener('click', () => {
+            if(isPlaying) {
+                audio.pause();
+                updatePlayPauseButton(false);
+            } else {
+                audio.play();
+                updatePlayPauseButton(true);
+            }
+        });
 
-  function formatTime(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60).toString().padStart(2, "0");
-    return `${minutes}:${seconds}`;
-  }
-</script>
-<script>
-    let currentTrackIndex = 0;
-    const tracks = [
-      {
-        file: 'SomethingInTheOrange.mp3',
-        title: 'Something In The Orange',
-        artist: 'Zach Bryan',
-        image: 'something-orange.png'
-      },
-      {
-        file: 'SaveMe.wav',
-        title: 'Save Me',
-        artist: 'Tristan Williams & T.B. On The Beat',
-        image: 'save-me.jpg'
-      }
-    ];
+        prevBtn.addEventListener('click', () => {
+            loadTrackByIndex(currentTrackIndex - 1);
+        });
 
-    function loadTrackByIndex(index) {
-      const track = tracks[index];
-      loadTrack(track.file, track.title, track.artist, track.image);
-      currentTrackIndex = index;
-      document.querySelector('.play-btn').innerText = "⏸️";
-      playing = true;
-    }
+        nextBtn.addEventListener('click', () => {
+            loadTrackByIndex(currentTrackIndex + 1);
+        });
 
-    function nextTrack() {
-      const nextIndex = (currentTrackIndex + 1) % tracks.length;
-      loadTrackByIndex(nextIndex);
-    }
+        audio.addEventListener('timeupdate', () => {
+            if(audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progress.style.width = percent + '%';
+            }
+        });
 
-    function previousTrack() {
-      const prevIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
-      loadTrackByIndex(prevIndex);
-    }
+        audio.addEventListener('ended', () => {
+            loadTrackByIndex(currentTrackIndex + 1);
+        });
 
-    function filterTracklist() {
-      const filter = document.getElementById("searchBox").value.toLowerCase();
-      const listItems = document.querySelectorAll(".tracklist li");
-      listItems.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(filter) ? "" : "none";
-      });
-    }
-  </script>
-  <script>
-    function filterDropdown() {
-      const filter = document.getElementById("searchBox").value.toLowerCase();
-      const dropdown = document.getElementById("dropdown");
-      dropdown.innerHTML = "";
+        waveform.addEventListener('click', (e) => {
+            const rect = waveform.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const clickPercent = clickX / width;
+            if(audio.duration) {
+                audio.currentTime = clickPercent * audio.duration;
+            }
+        });
 
-      if (!filter) {
-        dropdown.style.display = "none";
-        return;
-      }
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            searchResults.innerHTML = '';
+            if(query.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            const filtered = tracks.filter(t => 
+                t.title.toLowerCase().includes(query) || 
+                t.artist.toLowerCase().includes(query)
+            );
+            if(filtered.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            filtered.forEach(track => {
+                const div = document.createElement('div');
+                div.textContent = `${track.title} - ${track.artist}`;
+                div.addEventListener('click', () => {
+                    const index = tracks.findIndex(t => t.title === track.title && t.artist === track.artist);
+                    loadTrackByIndex(index);
+                    searchResults.style.display = 'none';
+                    searchInput.value = '';
+                });
+                searchResults.appendChild(div);
+            });
+            searchResults.style.display = 'block';
+        });
 
-      const matches = tracks.filter(track =>
-        track.title.toLowerCase().includes(filter) ||
-        track.artist.toLowerCase().includes(filter)
-      );
+        document.addEventListener('click', (e) => {
+            if(!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
 
-      matches.forEach(track => {
-        const item = document.createElement("div");
-        item.classList.add("dropdown-item");
-        item.innerHTML = `
-          <img src="${track.image}" class="dropdown-thumb" />
-          <div class="dropdown-text">
-            <strong>${track.title}</strong><br />
-            <small>${track.artist}</small>
-          </div>
-        `;
-        item.onclick = () => {
-          document.getElementById("searchBox").value = "";
-          document.getElementById("dropdown").style.display = "none";
-          loadTrack(track.file, track.title, track.artist, track.image);
-        };
-        dropdown.appendChild(item);
-      });
+        // Artist profile click to open
+        trackArtist.addEventListener('click', () => {
+            artistProfile.style.display = 'block';
+        });
 
-      dropdown.style.display = matches.length ? "block" : "none";
-    }
+        artistCloseBtn.addEventListener('click', () => {
+            artistProfile.style.display = 'none';
+        });
 
-    document.addEventListener("click", function (e) {
-      if (!document.querySelector(".search-container").contains(e.target)) {
-        document.getElementById("dropdown").style.display = "none";
-      }
-    });
-  </script>
-<script>
-    const profile = document.getElementById('artist-profile');
-    let isDragging = false;
-    let offsetX, offsetY;
+        // Make artist profile draggable
+        (function makeDraggable(el) {
+            let isMouseDown = false;
+            let offsetX, offsetY;
 
-    profile.addEventListener('mousedown', function (e) {
-      isDragging = true;
-      offsetX = e.clientX - profile.offsetLeft;
-      offsetY = e.clientY - profile.offsetTop;
-      profile.style.cursor = 'move';
-    });
+            el.addEventListener('mousedown', (e) => {
+                if(e.target === artistCloseBtn) return;
+                isMouseDown = true;
+                offsetX = e.clientX - el.getBoundingClientRect().left;
+                offsetY = e.clientY - el.getBoundingClientRect().top;
+                el.style.transition = 'none';
+            });
 
-    document.addEventListener('mousemove', function (e) {
-      if (isDragging) {
-        profile.style.left = e.clientX - offsetX + 'px';
-        profile.style.top = e.clientY - offsetY + 'px';
-      }
-    });
+            document.addEventListener('mouseup', () => {
+                isMouseDown = false;
+                el.style.transition = '';
+            });
 
-    document.addEventListener('mouseup', function () {
-      isDragging = false;
-      profile.style.cursor = 'default';
-    });
-  </script>
+            document.addEventListener('mousemove', (e) => {
+                if(!isMouseDown) return;
+                el.style.left = (e.clientX - offsetX) + 'px';
+                el.style.top = (e.clientY - offsetY) + 'px';
+                el.style.position = 'fixed';
+            });
+        })(artistProfile);
+
+        // Theme toggle
+        let darkTheme = true;
+        themeToggle.addEventListener('click', () => {
+            darkTheme = !darkTheme;
+            if(darkTheme) {
+                document.body.style.backgroundColor = '#121212';
+                document.body.style.color = '#fff';
+                themeToggle.textContent = '🌓';
+            } else {
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#000';
+                themeToggle.textContent = '🌞';
+            }
+        });
+
+        // Initialize
+        loadTrackByIndex(0);
+    </script>
 </body>
 </html>
