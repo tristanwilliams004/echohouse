@@ -152,19 +152,17 @@ body.dark-mode .theme-toggle-btn {
   color: #fff;
 }
 
-.logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
+.site-header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
 }
 
 .logo {
-  max-width: 160px;
+  width: 120px;
   height: auto;
-  display: block;
-  margin: 0 auto 30px auto;
-  filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
+  filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.6));
   transition: transform 0.3s ease;
 }
 
