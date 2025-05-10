@@ -28,9 +28,9 @@
       gap: 10px;
       margin: 20px;
       position: absolute;
-      top: 30px;
+      top: 20px;
       left: 160px;
-      margin-left: 100px;
+      margin-left: 160px;
     }
 
     .track-controls input {
@@ -171,6 +171,7 @@
 
     .player-controls {
       margin-top: 60px;
+      margin-bottom: 60px;
     }
 
     .main-content {
@@ -273,11 +274,11 @@
     }
 
     function rewind() {
-      audio.currentTime = 0;
+      previousTrack();
     }
 
     function skip() {
-      audio.currentTime = audio.duration;
+      nextTrack();
     }
   </script>
   <!-- Dynamic color script -->
