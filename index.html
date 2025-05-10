@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EchoHouse Player</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="player">
+    <img src="https://upload.wikimedia.org/wikipedia/en/2/25/SZA_-_SOS.png" class="cover-art" alt="Cover Art">
+    <div class="song-title">EAST COAST LOVE STORY</div>
+    <div class="artist-name">Tristan Williams</div>
+
+    <div class="waveform-bar">
+      <div class="waveform-fill"></div>
+    </div>
+
+    <div class="time-labels">
+      <span>0:00</span>
+      <span>?</span>
+    </div>
+
+    <div class="controls">
+      <button class="btn" onclick="rewind()">⏮️</button>
+      <button class="play-btn" onclick="togglePlay()">▶️</button>
+      <button class="btn" onclick="skip()">⏭️</button>
+    </div>
+
+    <!-- YOUR TRACK BELOW -->
+    <audio id="audio" src="https://dl.dropboxusercontent.com/scl/fi/ctr7go2qxcw4fot8lbxqy/YungMac-DC-Fly-Aleyah-Smith-Tristan-Williams-EAST-COAST-LOVE-STORY-Unreleased-Version.mp3"></audio>
+  </div>
+
+  <script>
+    const audio = document.getElementById("audio");
+    let playing = false;
+
+    function togglePlay() {
+      if (!playing) {
+        audio.play();
+        document.querySelector('.play-btn').innerText = "⏸️";
+        playing = true;
+      } else {
+        audio.pause();
+        document.querySelector('.play-btn').innerText = "▶️";
+        playing = false;
+      }
+    }
+
+    function rewind() {
+      audio.currentTime = 0;
+    }
+
+    function skip() {
+      audio.currentTime = audio.duration;
+    }
+  </script>
+
+</body>
+</html>
