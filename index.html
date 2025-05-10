@@ -27,15 +27,41 @@
     </div>
 
     <div class="controls">
-      <button class="btn">⏮️</button>
-      <button class="play-btn">▶️</button>
-      <button class="btn">⏭️</button>
+      <button class="btn" onclick="rewind()">⏮️</button>
+      <button class="play-btn" onclick="togglePlay()">▶️</button>
+      <button class="btn" onclick="skip()">⏭️</button>
     </div>
+
+    <!-- Actual audio file -->
+    <audio id="audio" src="https://sndup.net/n3nqv/d"></audio>
   </div>
 
   <script>
     function toggleTheme() {
       document.body.classList.toggle("dark-mode");
+    }
+
+    const audio = document.getElementById("audio");
+    let playing = false;
+
+    function togglePlay() {
+      if (!playing) {
+        audio.play();
+        document.querySelector('.play-btn').innerText = "⏸️";
+        playing = true;
+      } else {
+        audio.pause();
+        document.querySelector('.play-btn').innerText = "▶️";
+        playing = false;
+      }
+    }
+
+    function rewind() {
+      audio.currentTime = 0;
+    }
+
+    function skip() {
+      audio.currentTime = audio.duration;
     }
   </script>
 </body>
