@@ -20,30 +20,7 @@
       z-index: -1;
       transition: background-image 0.5s ease;
     }
-    .tracklist {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-      font-size: 16px;
-      color: white;
-    }
 
-    .tracklist ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .tracklist li {
-      cursor: pointer;
-      padding: 8px 16px;
-      border-radius: 10px;
-      transition: background-color 0.3s;
-    }
-
-    .tracklist li:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
     .track-controls {
       display: flex;
       justify-content: flex-start;
@@ -53,6 +30,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
+      margin-left: 100px;
     }
 
     .track-controls input {
@@ -147,6 +125,10 @@
     .dropdown-text {
       color: white;
     }
+
+    .cover-art.dark-mode-glow {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
   </style>
 </head>
 <body>
@@ -176,14 +158,6 @@
 </div>
 
   <div class="player-controls">
-    <ul class="tracklist">
-      <li onclick="loadTrack('SomethingInTheOrange.mp3', 'Something In The Orange', 'Zach Bryan', 'something-orange.png')">
-        🎵 Something In The Orange — Zach Bryan
-      </li>
-      <li onclick="loadTrack('SaveMe.wav', 'Save Me', 'T.B. Dime$', 'save-me.jpg')">
-        🎵 Save Me — T.B. Dime$
-      </li>
-    </ul>
     <div class="waveform-bar">
       <div class="waveform-fill" id="progress-bar"></div>
     </div>
@@ -261,6 +235,8 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
     audioSource.src = file;
     audio.load();
     audio.play();
+    document.querySelector('.play-btn').innerText = "⏸️";
+    playing = true;
 
     albumArt.addEventListener("load", () => {
       try {
@@ -270,6 +246,11 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
         document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.05)`;
         albumArt.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
         document.getElementById("bg-blur").style.backgroundImage = `url('${image}')`;
+        if (document.body.classList.contains("dark-mode") && image.includes("save-me")) {
+          albumArt.classList.add("dark-mode-glow");
+        } else {
+          albumArt.classList.remove("dark-mode-glow");
+        }
       } catch (err) {
         console.error("Color extraction failed:", err);
       }
@@ -292,6 +273,9 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
     progressBar.style.width = `${progressPercent}%`;
     currentTimeLabel.textContent = formatTime(current);
     totalTimeLabel.textContent = formatTime(duration);
+    if (typeof r !== "undefined" && typeof g !== "undefined" && typeof b !== "undefined") {
+      progressBar.style.background = `linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0.9), rgba(${r}, ${g}, ${b}, 0.4))`;
+    }
   });
 
   function formatTime(time) {
@@ -312,7 +296,7 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
       {
         file: 'SaveMe.wav',
         title: 'Save Me',
-        artist: 'T.B. Dime$',
+        artist: 'Tristan Williams & T.B. On The Beat',
         image: 'save-me.jpg'
       }
     ];
@@ -321,6 +305,8 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
       const track = tracks[index];
       loadTrack(track.file, track.title, track.artist, track.image);
       currentTrackIndex = index;
+      document.querySelector('.play-btn').innerText = "⏸️";
+      playing = true;
     }
 
     function nextTrack() {
