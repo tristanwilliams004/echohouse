@@ -84,10 +84,21 @@ body.dark-mode .artist-name {
 
 .time-labels {
   display: flex;
-  justify-content: space-between;
-  font-size: 0.8em;
-  margin-bottom: 20px;
-  color: #999;
+  justify-content: center;
+  gap: 4px;
+  color: white;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.time-labels span::after {
+  content: "/";
+  margin: 0 4px;
+  color: #aaa;
+}
+
+.time-labels span:last-child::after {
+  content: "";
 }
 
 /* Controls */
@@ -222,6 +233,23 @@ body.dark-mode .tracklist li:hover {
 }
 
 /* Search Dropdown Styling */
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+  font-family: 'Manrope', sans-serif;
+}
+
+body.dark-mode .search-container input[type="text"] {
+  background: rgba(255, 255, 255, 0.05);
+  color: #eee;
+}
+
 .search-container {
   position: relative;
   display: inline-block;
@@ -265,14 +293,4 @@ body.dark-mode .tracklist li:hover {
 .dropdown-text {
   color: white;
   font-size: 14px;
-}
-
-/* Time Label Fix */
-.time-labels {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  color: white;
-  font-size: 14px;
-  margin-top: -10px;
 }

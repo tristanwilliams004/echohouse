@@ -21,8 +21,10 @@
       transition: background-image 0.5s ease;
     }
     .tracklist {
-      margin-top: 40px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
       font-size: 16px;
       color: white;
     }
@@ -44,22 +46,34 @@
     }
     .track-controls {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       gap: 10px;
-      margin-top: 30px;
+      margin: 20px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
     }
 
     .track-controls input {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
       color: white;
       font-family: 'Manrope', sans-serif;
-      padding: 8px 12px;
-      border-radius: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
       border: none;
       font-size: 14px;
-      width: 200px;
-      margin-top: 20px;
+      width: 250px;
+    }
+    .time-labels {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      color: white;
+      gap: 4px;
+      margin-top: 10px;
     }
 
     .track-controls button {
@@ -161,30 +175,26 @@
   </audio>
 </div>
 
-<ul class="tracklist">
-    <li onclick="loadTrack('SomethingInTheOrange.mp3', 'Something In The Orange', 'Zach Bryan', 'something-orange.png')">
-      🎵 Something In The Orange — Zach Bryan
-    </li>
-    <li onclick="loadTrack('SaveMe.wav', 'Save Me', 'T.B. Dime$', 'save-me.jpg')">
-      🎵 Save Me — T.B. Dime$
-    </li>
-  </ul>
-
-  <div class="waveform-bar">
-    <div class="waveform-fill" id="progress-bar"></div>
-  </div>
-
-  <div class="time-labels">
-    <span id="current-time">0:00</span>/<span id="total-time">0:00</span>
-  </div>
-
+  <div class="player-controls">
+    <ul class="tracklist">
+      <li onclick="loadTrack('SomethingInTheOrange.mp3', 'Something In The Orange', 'Zach Bryan', 'something-orange.png')">
+        🎵 Something In The Orange — Zach Bryan
+      </li>
+      <li onclick="loadTrack('SaveMe.wav', 'Save Me', 'T.B. Dime$', 'save-me.jpg')">
+        🎵 Save Me — T.B. Dime$
+      </li>
+    </ul>
+    <div class="waveform-bar">
+      <div class="waveform-fill" id="progress-bar"></div>
+    </div>
+    <div class="time-labels">
+      <span id="current-time">0:00</span>/<span id="total-time">0:00</span>
+    </div>
     <div class="controls">
       <button class="btn" onclick="rewind()">⏮️</button>
       <button class="play-btn" onclick="togglePlay()">▶️</button>
       <button class="btn" onclick="skip()">⏭️</button>
     </div>
-
-
   </div>
 
   <script>
