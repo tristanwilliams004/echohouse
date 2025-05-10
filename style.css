@@ -151,6 +151,7 @@ body.dark-mode .theme-toggle-btn {
   background: #333333aa;
   color: #fff;
 }
+
 .logo-container {
   display: flex;
   justify-content: center;
@@ -161,6 +162,8 @@ body.dark-mode .theme-toggle-btn {
 .logo {
   max-width: 160px;
   height: auto;
+  display: block;
+  margin: 0 auto 30px auto;
   filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
   transition: transform 0.3s ease;
 }
