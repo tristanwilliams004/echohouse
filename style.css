@@ -44,7 +44,7 @@ body.dark-mode .player {
   object-fit: cover;
   margin-bottom: 20px;
   box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
-  transition: transform 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cover-art:hover {
@@ -87,10 +87,15 @@ body.dark-mode .artist-name {
 .time-labels {
   display: flex;
   justify-content: center;
-  gap: 4px;
-  color: white;
+  align-items: center;
+  gap: 6px;
   font-size: 14px;
-  margin-top: -10px;
+  color: #ccc;
+}
+
+.time-labels span {
+  min-width: 40px;
+  text-align: center;
 }
 
 .time-labels span::after {
@@ -107,8 +112,10 @@ body.dark-mode .artist-name {
 .controls {
   display: flex;
   justify-content: center;
-  gap: 30px;
   align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .btn, .play-btn {
@@ -117,6 +124,8 @@ body.dark-mode .artist-name {
   font-size: 1.5em;
   cursor: pointer;
   transition: transform 0.2s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn:hover, .play-btn:hover {
@@ -354,4 +363,12 @@ body.dark-mode .search-container input[type="text"] {
     width: 90%;
     padding: 20px;
   }
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  gap: 40px;
 }
