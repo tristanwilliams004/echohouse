@@ -1,0 +1,101 @@
+body {
+  background: radial-gradient(ellipse at center, #0f0f0f 0%, #000000 100%);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.player {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  padding: 35px 25px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.2);
+  color: #ffffff;
+  position: relative;
+}
+
+.cover-art {
+  width: 220px;
+  height: 220px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
+  margin-bottom: 20px;
+}
+
+.song-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.artist-name {
+  color: #00ffe7;
+  font-size: 1em;
+  margin-bottom: 25px;
+}
+
+.waveform-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.waveform-fill {
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, #00ffe0, #00c3ff);
+}
+
+.time-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+
+.btn, .play-btn {
+  background: none;
+  border: none;
+  color: #00ffe0;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.play-btn {
+  background: #00ffe0;
+  color: #000;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.8em;
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.4);
+}
+
+.neon-toggle {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 0.8em;
+  color: #00ffe0;
+  opacity: 0.8;
+}
