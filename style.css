@@ -169,3 +169,54 @@ body.dark-mode .theme-toggle-btn {
 .logo:hover {
   transform: scale(1.05);
 }
+
+/* Tracklist Styling */
+.tracklist {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+}
+
+.tracklist ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.tracklist li {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background-color 0.3s ease;
+}
+
+.tracklist li:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .tracklist li {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .tracklist li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Blurred Background */
+#bg-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(80px) brightness(0.4);
+  z-index: -1;
+  transition: background-image 0.5s ease-in-out;
+}

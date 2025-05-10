@@ -20,6 +20,28 @@
       z-index: -1;
       transition: background-image 0.5s ease;
     }
+    .tracklist {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 16px;
+      color: white;
+    }
+
+    .tracklist ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tracklist li {
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .tracklist li:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -42,8 +64,12 @@
 </div>
 
 <ul class="tracklist">
-  <li onclick="loadTrack('Zach Bryan - Something In The Orange.mp3', 'Something In The Orange', 'Zach Bryan', 'Limitless.jpg')">🎵 Something In The Orange — Zach Bryan</li>
-  <li onclick="loadTrack('SaveMe.wav', 'Save Me', 'T.B. Dime$', 'Limitless.jpg')">🎵 Save Me — T.B. Dime$</li>
+  <li onclick="loadTrack('Zach Bryan - Something In The Orange.mp3', 'Something In The Orange', 'Zach Bryan', 'Limitless.jpg')">
+    🎵 Something In The Orange — Zach Bryan
+  </li>
+  <li onclick="loadTrack('SaveMe.wav', 'Save Me', 'T.B. Dime$', 'Limitless.jpg')">
+    🎵 Save Me — T.B. Dime$
+  </li>
 </ul>
 
   <div class="waveform-bar">
