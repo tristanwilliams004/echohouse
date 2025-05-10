@@ -16,7 +16,7 @@
   </div>
 
   <div class="player">
-    <img src="Limitless.jpg" class="cover-art" alt="Cover Art">
+    <img src="Limitless.jpg" class="cover-art" alt="Cover Art" crossorigin="anonymous">
     <div class="song-title">East Coast Love Story</div>
     <div class="artist-name">Tristan Williams</div>
 
@@ -66,6 +66,26 @@
     function skip() {
       audio.currentTime = audio.duration;
     }
+  </script>
+  <!-- Dynamic color script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
+  <script>
+    const img = document.querySelector(".cover-art");
+    const player = document.querySelector(".player");
+    const colorThief = new ColorThief();
+
+    img.addEventListener('load', function () {
+  try {
+    if (img.complete) {
+      const color = colorThief.getColor(img);
+      const [r, g, b] = color;
+      player.style.boxShadow = `0 0 60px rgba(${r}, ${g}, ${b}, 0.5)`;
+      document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.05)`;
+    }
+  } catch (err) {
+    console.error("Color extraction failed:", err);
+  }
+});
   </script>
 </body>
 </html>
