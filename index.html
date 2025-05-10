@@ -28,8 +28,8 @@
       gap: 10px;
       margin: 20px;
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 30px;
+      left: 160px;
       margin-left: 100px;
     }
 
@@ -163,6 +163,22 @@
       font-size: 20px;
       cursor: pointer;
     }
+
+    .player {
+      margin-top: 100px;
+      margin-bottom: 40px;
+    }
+
+    .player-controls {
+      margin-top: 60px;
+    }
+
+    .main-content {
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
@@ -182,26 +198,28 @@
     <button onclick="toggleTheme()" class="theme-toggle-btn">🌙 / ☀️</button>
   </div>
 
-<div class="player">
-  <img id="album-art" src="Limitless.jpg" class="cover-art" crossorigin="anonymous" alt="Cover Art" />
-  <h2 id="track-title">Something In The Orange</h2>
-  <p id="track-artist"><span onclick="toggleProfile()" class="artist-link">Zach Bryan</span></p>
-  <audio id="audio">
-    <source id="audio-source" src="Zach Bryan - Something In The Orange.mp3" type="audio/mp3">
-  </audio>
-</div>
+  <div class="main-content">
+    <div class="player">
+      <img id="album-art" src="Limitless.jpg" class="cover-art" crossorigin="anonymous" alt="Cover Art" />
+      <h2 id="track-title">Something In The Orange</h2>
+      <p id="track-artist"><span onclick="toggleProfile()" class="artist-link">Zach Bryan</span></p>
+      <audio id="audio">
+        <source id="audio-source" src="Zach Bryan - Something In The Orange.mp3" type="audio/mp3">
+      </audio>
+    </div>
 
-  <div class="player-controls">
-    <div class="waveform-bar">
-      <div class="waveform-fill" id="progress-bar"></div>
-    </div>
-    <div class="time-labels">
-      <span id="current-time">0:00</span>/<span id="total-time">0:00</span>
-    </div>
-    <div class="controls">
-      <button class="btn" onclick="rewind()">⏮️</button>
-      <button class="play-btn" onclick="togglePlay()">▶️</button>
-      <button class="btn" onclick="skip()">⏭️</button>
+    <div class="player-controls">
+      <div class="waveform-bar">
+        <div class="waveform-fill" id="progress-bar"></div>
+      </div>
+      <div class="time-labels">
+        <span id="current-time">0:00</span>/<span id="total-time">0:00</span>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="rewind()">⏮️</button>
+        <button class="play-btn" onclick="togglePlay()">▶️</button>
+        <button class="btn" onclick="skip()">⏭️</button>
+      </div>
     </div>
   </div>
 
