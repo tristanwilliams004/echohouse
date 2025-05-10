@@ -146,8 +146,18 @@
       color: white;
       max-width: 300px;
       z-index: 20;
-      box-shadow: 0 0 15px #00f260;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
       font-family: 'Manrope', sans-serif;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: transparent;
+      color: white;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -192,10 +202,11 @@
   </div>
 
   <div id="artist-profile" class="artist-profile" style="display: none;">
+    <button class="close-btn" onclick="toggleProfile()">×</button>
     <h2>Tristan Williams / T.B. On The Beat</h2>
     <img src="tristan-profile.jpg" alt="Artist Image" style="width:120px;border-radius:8px;margin-bottom:10px;">
-    <p>Music producer, songwriter, and artist. Blending genres with cinematic vibes and authentic storytelling.</p>
-    <p><strong>Save Me</strong> — Streams: <span id="saveMeCount">0</span></p>
+    <p>Genre-defying artist and visionary producer known for fusing country grit with cinematic trap textures and bold storytelling that punches through the noise.</p>
+    <a href="artist-profile.html" class="profile-link">View Full Profile</a>
   </div>
 
   <script>
@@ -408,6 +419,30 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
       if (!document.querySelector(".search-container").contains(e.target)) {
         document.getElementById("dropdown").style.display = "none";
       }
+    });
+  </script>
+<script>
+    const profile = document.getElementById('artist-profile');
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    profile.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      offsetX = e.clientX - profile.offsetLeft;
+      offsetY = e.clientY - profile.offsetTop;
+      profile.style.cursor = 'move';
+    });
+
+    document.addEventListener('mousemove', function (e) {
+      if (isDragging) {
+        profile.style.left = e.clientX - offsetX + 'px';
+        profile.style.top = e.clientY - offsetY + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', function () {
+      isDragging = false;
+      profile.style.cursor = 'default';
     });
   </script>
 </body>

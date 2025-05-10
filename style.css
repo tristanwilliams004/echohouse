@@ -281,7 +281,7 @@ body.dark-mode .search-container input[type="text"] {
   max-width: 320px;
   margin: 20px auto;
   color: white;
-  box-shadow: 0 0 20px rgba(0, 127, 255, 0.25);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -312,14 +312,34 @@ body.dark-mode .search-container input[type="text"] {
 .artist-link {
   cursor: pointer;
   text-decoration: underline;
-  color: #00c3ff;
+  color: inherit;
   font-weight: 600;
 }
 
 .artist-link:hover {
-  color: #66e0ff;
+  color: inherit;
 }
 
 #artist-profile {
   overflow-wrap: break-word;
+}
+
+/* Artist Profile Draggable and Close Button Styles */
+.artist-profile.draggable {
+  position: absolute;
+  top: 100px;
+  right: 60px;
+  cursor: move;
+  z-index: 999;
+}
+
+.artist-profile .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
 }
