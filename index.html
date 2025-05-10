@@ -42,6 +42,36 @@
     .tracklist li:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
+    .track-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .track-controls input {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      width: 200px;
+    }
+
+    .track-controls button {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      padding: 10px 14px;
+      font-size: 16px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .track-controls button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
   </style>
 </head>
 <body>
@@ -63,6 +93,12 @@
   </audio>
 </div>
 
+  <div class="track-controls">
+    <button onclick="previousTrack()">⏮️</button>
+    <input type="text" id="searchBox" oninput="filterTracklist()" placeholder="Search songs..." />
+    <button onclick="nextTrack()">⏭️</button>
+  </div>
+
 <ul class="tracklist">
     <li onclick="loadTrack('SomethingInTheOrange.mp3', 'Something In The Orange', 'Zach Bryan', 'something-orange.png')">
       🎵 Something In The Orange — Zach Bryan
@@ -77,8 +113,7 @@
   </div>
 
   <div class="time-labels">
-    <span id="current-time">0:00</span>
-    <span id="total-time">0:00</span>
+    <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
   </div>
 
     <div class="controls">
@@ -193,5 +228,47 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
     return `${minutes}:${seconds}`;
   }
 </script>
+<script>
+    let currentTrackIndex = 0;
+    const tracks = [
+      {
+        file: 'SomethingInTheOrange.mp3',
+        title: 'Something In The Orange',
+        artist: 'Zach Bryan',
+        image: 'something-orange.png'
+      },
+      {
+        file: 'SaveMe.wav',
+        title: 'Save Me',
+        artist: 'T.B. Dime$',
+        image: 'save-me.jpg'
+      }
+    ];
+
+    function loadTrackByIndex(index) {
+      const track = tracks[index];
+      loadTrack(track.file, track.title, track.artist, track.image);
+      currentTrackIndex = index;
+    }
+
+    function nextTrack() {
+      const nextIndex = (currentTrackIndex + 1) % tracks.length;
+      loadTrackByIndex(nextIndex);
+    }
+
+    function previousTrack() {
+      const prevIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+      loadTrackByIndex(prevIndex);
+    }
+
+    function filterTracklist() {
+      const filter = document.getElementById("searchBox").value.toLowerCase();
+      const listItems = document.querySelectorAll(".tracklist li");
+      listItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(filter) ? "" : "none";
+      });
+    }
+  </script>
 </body>
 </html>
