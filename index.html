@@ -51,11 +51,15 @@
     }
 
     .track-controls input {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-family: 'Manrope', sans-serif;
       padding: 8px 12px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
       font-size: 14px;
       width: 200px;
+      margin-top: 20px;
     }
 
     .track-controls button {
@@ -72,9 +76,74 @@
     .track-controls button:hover {
       background: rgba(255, 255, 255, 0.2);
     }
+
+    .waveform-bar {
+      width: 80%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px auto;
+    }
+
+    .waveform-fill {
+      height: 100%;
+      background: linear-gradient(to right, #00f260, #0575e6);
+      width: 0;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .search-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 40px;
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      border-radius: 8px;
+      z-index: 10;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdown-thumb {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 10px;
+    }
+
+    .dropdown-text {
+      color: white;
+    }
   </style>
 </head>
 <body>
+  <div class="track-controls">
+    <div class="search-container">
+      <input type="text" id="searchBox" oninput="filterDropdown()" placeholder="Search songs..." autocomplete="off" />
+      <div id="dropdown" class="dropdown-menu"></div>
+    </div>
+    <button onclick="previousTrack()">⏮️</button>
+    <button onclick="nextTrack()">⏭️</button>
+  </div>
 <div id="bg-blur"></div>
 <header class="site-header">
   <img src="echohouse-logo.png" alt="EchoHouse Logo" class="logo" />
@@ -87,17 +156,10 @@
   <img id="album-art" src="Limitless.jpg" class="cover-art" crossorigin="anonymous" alt="Cover Art" />
   <h2 id="track-title">Something In The Orange</h2>
   <p id="track-artist">Zach Bryan</p>
-  <audio id="audio" controls>
+  <audio id="audio">
     <source id="audio-source" src="Zach Bryan - Something In The Orange.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
   </audio>
 </div>
-
-  <div class="track-controls">
-    <button onclick="previousTrack()">⏮️</button>
-    <input type="text" id="searchBox" oninput="filterTracklist()" placeholder="Search songs..." />
-    <button onclick="nextTrack()">⏭️</button>
-  </div>
 
 <ul class="tracklist">
     <li onclick="loadTrack('SomethingInTheOrange.mp3', 'Something In The Orange', 'Zach Bryan', 'something-orange.png')">
@@ -113,7 +175,7 @@
   </div>
 
   <div class="time-labels">
-    <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+    <span id="current-time">0:00</span>/<span id="total-time">0:00</span>
   </div>
 
     <div class="controls">
@@ -269,6 +331,49 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
         item.style.display = text.includes(filter) ? "" : "none";
       });
     }
+  </script>
+  <script>
+    function filterDropdown() {
+      const filter = document.getElementById("searchBox").value.toLowerCase();
+      const dropdown = document.getElementById("dropdown");
+      dropdown.innerHTML = "";
+
+      if (!filter) {
+        dropdown.style.display = "none";
+        return;
+      }
+
+      const matches = tracks.filter(track =>
+        track.title.toLowerCase().includes(filter) ||
+        track.artist.toLowerCase().includes(filter)
+      );
+
+      matches.forEach(track => {
+        const item = document.createElement("div");
+        item.classList.add("dropdown-item");
+        item.innerHTML = `
+          <img src="${track.image}" class="dropdown-thumb" />
+          <div class="dropdown-text">
+            <strong>${track.title}</strong><br />
+            <small>${track.artist}</small>
+          </div>
+        `;
+        item.onclick = () => {
+          document.getElementById("searchBox").value = "";
+          document.getElementById("dropdown").style.display = "none";
+          loadTrack(track.file, track.title, track.artist, track.image);
+        };
+        dropdown.appendChild(item);
+      });
+
+      dropdown.style.display = matches.length ? "block" : "none";
+    }
+
+    document.addEventListener("click", function (e) {
+      if (!document.querySelector(".search-container").contains(e.target)) {
+        document.getElementById("dropdown").style.display = "none";
+      }
+    });
   </script>
 </body>
 </html>
