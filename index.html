@@ -6,8 +6,24 @@
   <title>EchoHouse Player</title>
   <link rel="stylesheet" href="style.css?v=3" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    #bg-blur {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      filter: blur(60px) brightness(0.3);
+      z-index: -1;
+      transition: background-image 0.5s ease;
+    }
+  </style>
 </head>
 <body>
+<div id="bg-blur"></div>
 <header class="site-header">
   <img src="echohouse-logo.png" alt="EchoHouse Logo" class="logo" />
 </header>
@@ -15,19 +31,29 @@
     <button onclick="toggleTheme()" class="theme-toggle-btn">🌙 / ☀️</button>
   </div>
 
-  <div class="player">
-    <img src="Limitless.jpg" class="cover-art" alt="Cover Art" crossorigin="anonymous">
-    <div class="song-title">East Coast Love Story</div>
-    <div class="artist-name">Tristan Williams</div>
+<div class="player">
+  <img id="album-art" src="Limitless.jpg" class="cover-art" crossorigin="anonymous" alt="Cover Art" />
+  <h2 id="track-title">Something In The Orange</h2>
+  <p id="track-artist">Zach Bryan</p>
+  <audio id="audio" controls>
+    <source id="audio-source" src="Zach Bryan - Something In The Orange.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+</div>
 
-    <div class="waveform-bar">
-      <div class="waveform-fill"></div>
-    </div>
+<ul class="tracklist">
+  <li onclick="loadTrack('Zach Bryan - Something In The Orange.mp3', 'Something In The Orange', 'Zach Bryan', 'Limitless.jpg')">🎵 Something In The Orange — Zach Bryan</li>
+  <li onclick="loadTrack('SaveMe.wav', 'Save Me', 'T.B. Dime$', 'Limitless.jpg')">🎵 Save Me — T.B. Dime$</li>
+</ul>
 
-    <div class="time-labels">
-      <span>0:00</span>
-      <span>?</span>
-    </div>
+  <div class="waveform-bar">
+    <div class="waveform-fill" id="progress-bar"></div>
+  </div>
+
+  <div class="time-labels">
+    <span id="current-time">0:00</span>
+    <span id="total-time">0:00</span>
+  </div>
 
     <div class="controls">
       <button class="btn" onclick="rewind()">⏮️</button>
@@ -35,8 +61,7 @@
       <button class="btn" onclick="skip()">⏭️</button>
     </div>
 
-    <!-- Actual audio file -->
-    <audio id="audio" src="Limitless.wav"></audio>
+
   </div>
 
   <script>
@@ -88,5 +113,59 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
   }
 });
   </script>
+<script>
+  function loadTrack(file, title, artist, image) {
+    const audio = document.getElementById("audio");
+    const audioSource = document.getElementById("audio-source");
+    const albumArt = document.getElementById("album-art");
+    const titleEl = document.getElementById("track-title");
+    const artistEl = document.getElementById("track-artist");
+
+    audio.pause();
+    albumArt.src = image;
+    titleEl.textContent = title;
+    artistEl.textContent = artist;
+    audioSource.src = file;
+    audio.load();
+    audio.play();
+
+    albumArt.addEventListener("load", () => {
+      try {
+        const color = colorThief.getColor(albumArt);
+        const [r, g, b] = color;
+        player.style.boxShadow = `0 0 60px rgba(${r}, ${g}, ${b}, 0.5)`;
+        document.body.style.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.05)`;
+        albumArt.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
+        document.getElementById("bg-blur").style.backgroundImage = `url('${image}')`;
+      } catch (err) {
+        console.error("Color extraction failed:", err);
+      }
+    });
+  }
+
+  window.onload = () => {
+    loadTrack('Zach Bryan - Something In The Orange.mp3', 'Something In The Orange', 'Zach Bryan', 'Limitless.jpg');
+  };
+</script>
+<script>
+  const progressBar = document.getElementById("progress-bar");
+  const currentTimeLabel = document.getElementById("current-time");
+  const totalTimeLabel = document.getElementById("total-time");
+
+  audio.addEventListener("timeupdate", () => {
+    const current = audio.currentTime;
+    const duration = audio.duration || 0;
+    const progressPercent = (current / duration) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+    currentTimeLabel.textContent = formatTime(current);
+    totalTimeLabel.textContent = formatTime(duration);
+  });
+
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60).toString().padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  }
+</script>
 </body>
 </html>
