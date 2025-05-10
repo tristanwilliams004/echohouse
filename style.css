@@ -70,16 +70,17 @@ body.dark-mode .artist-name {
 /* Waveform */
 .waveform-bar {
   height: 8px;
-  background: #ddd;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 10px;
 }
 
 .waveform-fill {
-  width: 45%;
+  width: 0%;
   height: 100%;
   background: linear-gradient(to right, #00c3ff, #007fff);
+  transition: width 0.3s ease-in-out;
 }
 
 .time-labels {
@@ -181,42 +182,6 @@ body.dark-mode .theme-toggle-btn {
   transform: scale(1.05);
 }
 
-/* Tracklist Styling */
-.tracklist {
-  margin-top: 60px;
-  text-align: center;
-  font-size: 16px;
-  color: #fff;
-}
-
-.tracklist ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 400px;
-}
-
-.tracklist li {
-  cursor: pointer;
-  padding: 10px 20px;
-  margin: 8px 0;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  transition: background-color 0.3s ease;
-}
-
-.tracklist li:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-body.dark-mode .tracklist li {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-body.dark-mode .tracklist li:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
 /* Blurred Background */
 #bg-blur {
   position: fixed;
@@ -255,6 +220,7 @@ body.dark-mode .search-container input[type="text"] {
   display: inline-block;
   width: 100%;
   max-width: 300px;
+  margin-left: 140px;
 }
 
 .dropdown-menu {
@@ -293,4 +259,8 @@ body.dark-mode .search-container input[type="text"] {
 .dropdown-text {
   color: white;
   font-size: 14px;
+}
+
+.cover-art.dark-mode-glow {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
 }
