@@ -129,6 +129,26 @@
     .cover-art.dark-mode-glow {
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
     }
+
+    .artist-link {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #00f260;
+    }
+
+    #artist-profile {
+      position: fixed;
+      top: 100px;
+      right: 50px;
+      background: rgba(0,0,0,0.9);
+      padding: 20px;
+      border-radius: 12px;
+      color: white;
+      max-width: 300px;
+      z-index: 20;
+      box-shadow: 0 0 15px #00f260;
+      font-family: 'Manrope', sans-serif;
+    }
   </style>
 </head>
 <body>
@@ -151,7 +171,7 @@
 <div class="player">
   <img id="album-art" src="Limitless.jpg" class="cover-art" crossorigin="anonymous" alt="Cover Art" />
   <h2 id="track-title">Something In The Orange</h2>
-  <p id="track-artist">Zach Bryan</p>
+  <p id="track-artist"><span onclick="toggleProfile()" class="artist-link">Zach Bryan</span></p>
   <audio id="audio">
     <source id="audio-source" src="Zach Bryan - Something In The Orange.mp3" type="audio/mp3">
   </audio>
@@ -171,9 +191,21 @@
     </div>
   </div>
 
+  <div id="artist-profile" class="artist-profile" style="display: none;">
+    <h2>Tristan Williams / T.B. On The Beat</h2>
+    <img src="tristan-profile.jpg" alt="Artist Image" style="width:120px;border-radius:8px;margin-bottom:10px;">
+    <p>Music producer, songwriter, and artist. Blending genres with cinematic vibes and authentic storytelling.</p>
+    <p><strong>Save Me</strong> — Streams: <span id="saveMeCount">0</span></p>
+  </div>
+
   <script>
     function toggleTheme() {
       document.body.classList.toggle("dark-mode");
+    }
+
+    function toggleProfile() {
+      const profile = document.getElementById("artist-profile");
+      profile.style.display = profile.style.display === "none" ? "block" : "none";
     }
 
     const audio = document.getElementById("audio");
@@ -226,17 +258,24 @@ img.style.boxShadow = `0 0 25px rgba(${r}, ${g}, ${b}, 0.6)`;
     const audioSource = document.getElementById("audio-source");
     const albumArt = document.getElementById("album-art");
     const titleEl = document.getElementById("track-title");
-    const artistEl = document.getElementById("track-artist");
+    // Replace artist text with clickable span
+    document.getElementById("track-artist").innerHTML = `<span onclick="toggleProfile()" class="artist-link">${artist}</span>`;
 
     audio.pause();
     albumArt.src = image;
     titleEl.textContent = title;
-    artistEl.textContent = artist;
     audioSource.src = file;
     audio.load();
     audio.play();
     document.querySelector('.play-btn').innerText = "⏸️";
     playing = true;
+
+    if (title === "Save Me") {
+      let count = localStorage.getItem("SaveMeStreams") || 0;
+      count++;
+      localStorage.setItem("SaveMeStreams", count);
+      document.getElementById("saveMeCount").textContent = count;
+    }
 
     albumArt.addEventListener("load", () => {
       try {

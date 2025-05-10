@@ -270,3 +270,56 @@ body.dark-mode .search-container input[type="text"] {
 .cover-art.dark-mode-glow {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
 }
+
+/* Artist Profile Styles */
+.artist-profile {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 320px;
+  margin: 20px auto;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 127, 255, 0.25);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.artist-profile h2 {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.artist-profile img {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.artist-profile p {
+  font-size: 0.95em;
+  margin-bottom: 6px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.artist-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #00c3ff;
+  font-weight: 600;
+}
+
+.artist-link:hover {
+  color: #66e0ff;
+}
+
+#artist-profile {
+  overflow-wrap: break-word;
+}
